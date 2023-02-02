@@ -1,0 +1,34 @@
+import requests
+from bs4 import BeautifulSoup
+
+web_page = requests.get("https://www.orthrusonline.ru/dex/")
+soup = BeautifulSoup(web_page.content, "lxml")
+
+# вытаскиваем ссылки на поколения
+all_g = soup.find("ul", class_="nav-list island").find_all("a")
+gmas = []
+lmas = []
+for item in all_g:
+    item_text = item.text
+    item_url = item.get("href")
+    gmas.append(item_url)
+
+# вытаскиваем в один массив ссылки на страницу каждого покемона
+for element in gmas:
+    web_page = requests.get(element)
+    soup = BeautifulSoup(web_page.content, "lxml")
+    all_a = soup.find_all("a", class_="ent-name")
+    for item in all_a:
+        item_text = item.text
+        item_url = item.get("href")
+        lmas.append(item_url)
+
+# проходимся по массиву из всех ссылок и выгружаем нужное значение
+for element in lmas:
+    web_page = requests.get(element)
+    soup = BeautifulSoup(web_page.content, "lxml")
+    #строки снизу изменяются в зависимости от нужных значений
+    height = soup.find(class_="vitals-table").find("tbody").find_all("td")
+    h1 = height[3].text
+    h2 = h1.split(" ")
+    print(h2[0])
