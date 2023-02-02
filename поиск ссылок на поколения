@@ -1,0 +1,7 @@
+all_gen = soup.find("ul", class_="nav-list island").find_all("a")
+item_gen_mas = []
+for item in all_gen:
+    item_text = item.text
+    item_url = item.get("href")
+    item_gen_mas.append(item_url)
+print(item_gen_mas)
