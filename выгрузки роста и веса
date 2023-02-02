@@ -1,0 +1,17 @@
+# ПЕРЕБОР ССЫЛОК И ВЫГРУЗКА РОСТА
+for element in item_mas:
+    web_page = requests.get(element)
+    soup = BeautifulSoup(web_page.content, "lxml")
+    height = soup.find(class_="vitals-table").find("tbody").find_all("td")
+    h1 = height[2].text
+    h2 = h1.split(" ")
+    print(h2[0])
+
+# ПЕРЕБОР ССЫЛОК И ВЫГРУЗКА ВЕСА
+for element in item_mas:
+    web_page = requests.get(element)
+    soup = BeautifulSoup(web_page.content, "lxml")
+    weight= soup.find(class_="vitals-table").find("tbody").find_all("td")
+    w1 = weight[2].text
+    w2 = h1.split(" ")
+    print(w2[0])
