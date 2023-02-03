@@ -13,5 +13,5 @@ for element in item_mas:
     soup = BeautifulSoup(web_page.content, "lxml")
     weight= soup.find(class_="vitals-table").find("tbody").find_all("td")
     w1 = weight[2].text
-    w2 = h1.split(" ")
+    w2 = w1.split(" ")
     print(w2[0])
